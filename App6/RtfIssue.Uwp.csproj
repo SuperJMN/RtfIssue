@@ -101,6 +101,7 @@
     <Compile Include="MainViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RichEditBoxEx.cs" />
+    <Compile Include="TextModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -138,6 +139,12 @@
     <PackageReference Include="ReactiveUI">
       <Version>8.0.0-alpha0117</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExtendedXmlSerializer\src\ExtendedXmlSerializer\ExtendedXmlSerializer.csproj">
+      <Project>{8C0B483B-8581-4832-A917-436E1911A76F}</Project>
+      <Name>ExtendedXmlSerializer</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

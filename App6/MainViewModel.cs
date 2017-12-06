@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reactive;
 using System.Threading.Tasks;
@@ -17,6 +18,13 @@ namespace App6
 		public MainViewModel()
 		{
 			SaveCommand = ReactiveCommand.CreateFromTask(GetValue);
+		    SaveCommand.ThrownExceptions.Subscribe(exception =>
+		    {
+		        if (Debugger.IsAttached)
+		        {
+                    Debugger.Break();
+		        }
+		    });
 		}
 
 		private async Task GetValue()
@@ -29,24 +37,13 @@ namespace App6
 
 			var file = await saveFilePicker.PickSaveFileAsync();
 
-			using (var output = await file.OpenStreamForWriteAsync())
-			{
-				var serializer = new ConfigurationContainer().Create();
-				serializer.Serialize(output, TextModel);
-			}
-		}
+            using (var output = await file.OpenStreamForWriteAsync())
+            {
+                var serializer = new ConfigurationContainer().Create();
+                serializer.Serialize(output, TextModel);
+            }
+        }
 
-		public ReactiveCommand<Unit, Unit> SaveCommand { get; set; }
-	}
-
-	public class TextModel : ReactiveObject
-	{
-		private string text;
-
-		public string Text
-		{
-			get => text;
-			set => this.RaiseAndSetIfChanged(ref text, value);
-		}
+        public ReactiveCommand<Unit, Unit> SaveCommand { get; }
 	}
 }

@@ -1,0 +1,3 @@
+[submodule "ExtendedXmlSerializer"]
+	path = ExtendedXmlSerializer
+	url = https://github.com/SuperJMN/ExtendedXmlSerializer.git
