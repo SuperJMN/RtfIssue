@@ -39,7 +39,11 @@ namespace App6
 
             using (var output = await file.OpenStreamForWriteAsync())
             {
-                var serializer = new ConfigurationContainer().Create();
+                var serializer = new ConfigurationContainer()
+                    .Type<TextModel>()
+                        .Member(x => x.Text).Verbatim()
+                    .Create();
+
                 serializer.Serialize(output, TextModel);
             }
         }
